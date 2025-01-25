@@ -106,6 +106,21 @@ Routes:
         ServiceName: Microservices.Demo.Policy.API
         UpstreamHttpMethod: 
             - Post
+        AuthenticationOptions:
+            AuthenticationProviderKey: ApiSecurityAuthenticationScheme
+#            AllowedScopes:
+#                -
+        RouteClaimsRequirement:
+            userType: SALESMAN      
+        DangerousAcceptAnyServerCertificateValidator: true
+        AddHeadersToRequest:
+            AgentLogin: Claims[http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier] > value[0] > |
+    -
+        DownstreamPathTemplate: /api/Policies
+        DownstreamScheme: http
+        UpstreamPathTemplate: /api/Policies
+        ServiceName: Microservices.Demo.Policy.API
+        UpstreamHttpMethod: 
             - Get
         AuthenticationOptions:
             AuthenticationProviderKey: ApiSecurityAuthenticationScheme
